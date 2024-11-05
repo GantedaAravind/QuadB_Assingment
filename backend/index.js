@@ -22,7 +22,7 @@ app.use("/api", router); // Prefix all routes with /api
 
 app.get("/", (req, res) => {
   res.send("Welcome to the API!"); // A simple welcome message
-});
+}); 
 
 // Connect to the database and start the server
 connectTODatabase()

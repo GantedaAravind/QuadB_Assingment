@@ -3,13 +3,16 @@ import { FaTelegramPlane } from "react-icons/fa";
 
 const NavBar = () => {
   return (
-    <div className="w-[90%] mx-auto flex items-center justify-between font-sans mt-3  ">
+    <div className="w-[90%] mx-auto flex flex-col md:flex-row items-center justify-between font-sans mt-3 space-y-3 md:space-y-0">
+      {/* Logo */}
       <div>
-        <h2 className=" text-[#3dc4c4] text-4xl  font-semibold cursor-pointer ">
+        <h2 className="text-[#3dc4c4] text-3xl md:text-4xl font-semibold cursor-pointer">
           HODLINFO
         </h2>
       </div>
-      <dv className="flex items-center text-white gap-2 justify-around ">
+
+      {/* Select Boxes and Buy Button */}
+      <div className="flex flex-col sm:flex-row items-center text-white gap-3 md:gap-4 justify-around">
         <div>
           <select className="bg-[#323a5070] px-3 py-1 rounded flex items-center">
             <option value="INR" selected>
@@ -19,7 +22,6 @@ const NavBar = () => {
         </div>
         <div>
           <select className="bg-[#323a5070] px-3 py-1 rounded flex items-center">
-            {/* <select className="bg-[#323a5070] px-3 py-1 rounded flex items-center"> */}
             <option
               className="rounded bg-white text-black"
               value="BTS"
@@ -84,23 +86,21 @@ const NavBar = () => {
             <option className="rounded bg-white text-black" value="SAND">
               SAND
             </option>
-            {/* </select> */}
           </select>
         </div>
-        <div className="bg-[#323a5070] px-3 py-1 rounded cursor-pointer ">
+        <div className="bg-[#323a5070] px-3 py-1 rounded cursor-pointer">
           BUY BTS
         </div>
-      </dv>
-      <div className="flex item-center justify-around text-xl gap-2">
+      </div>
+
+      {/* Notification and Connect Telegram */}
+      <div className="flex items-center justify-around text-lg md:text-xl gap-3 md:gap-4">
         <p className="text-[#3dc4c4] rounded-full border-2 border-[#3dc4c4] px-2 py-1">
           57
         </p>
-        <div className="flex items-center gap-2 bg-[#3dc4c4] rounded px-2 py-1 ">
-          <div className="">
-            <FaTelegramPlane />
-          </div>
-          <p>Connect Telegram</p>
-          <div></div>
+        <div className="flex items-center gap-2 bg-[#3dc4c4] rounded px-2 py-1">
+          <FaTelegramPlane />
+          <p className="hidden sm:block">Connect Telegram</p>
         </div>
       </div>
     </div>

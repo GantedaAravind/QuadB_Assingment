@@ -7,6 +7,7 @@ import Tricker from "./Tricker";
 const DisplayTickers = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
+
   const fetchData = async () => {
     setLoading(true); // Start loading
 
@@ -16,47 +17,47 @@ const DisplayTickers = () => {
       );
       setData(response.data); // Update state with fetched data
     } catch (err) {
-      console.log(err.message); // Set error message if fetch fails
+      console.error("Error fetching data:", err.message);
     } finally {
       setLoading(false); // End loading
     }
   };
+
   useEffect(() => {
     fetchData();
   }, []);
+
   const calculateDifference = (lastPrice, openPrice) => {
-    // Convert the prices from strings to numbers
     const last = parseFloat(lastPrice);
     const open = parseFloat(openPrice);
 
-    // Calculate the percentage difference
-    if (open === 0) {
-      return 0; // Avoid division by zero
-    }
+    if (open === 0) return 0; // Avoid division by zero
 
     const difference = ((last - open) / open) * 100;
-    return difference.toFixed(2); // Return the result rounded to two decimal places
+    return difference.toFixed(2); // Return rounded to two decimal places
   };
 
   const calculateSavings = (lastPrice, targetBuyPrice) => {
-    // Convert prices from strings to numbers
     const last = parseFloat(lastPrice);
     const target = parseFloat(targetBuyPrice);
 
-    // Check if the last price is lower than the target buy price
-    return (target - last).toFixed(2); // Return the savings rounded to two decimal places
+    if (last < target) {
+      return (target - last).toFixed(2); // Savings rounded to two decimal places
+    }
+    return "0.00"; // No savings if last price is not lower
   };
 
-  // Example target buy price (can be dynamic based on user input)
+  // Example target buy price (can be dynamic)
   const targetBuyPrice = 100.0;
+
   return (
-    <div className="w-[90%] mx-auto">
+    <div className="w-[90%] mx-auto overflow-x-auto">
       <table
-        className="w-full border-collapse mt-10  text-white "
+        className="w-full border-collapse mt-10 text-white text-sm md:text-base"
         cellPadding={10}
         cellSpacing={10}
       >
-        <thead className="text-2xl font-semibold ">
+        <thead className="text-base md:text-2xl font-semibold">
           <tr>
             <th className="text-start">#</th>
             <th className="text-start">Platform</th>
@@ -73,8 +74,8 @@ const DisplayTickers = () => {
               )) // Display 5 skeleton rows
             : Object.values(data).map((item, index) => (
                 <Tricker
-                  key={data._idx}
-                  name={item.base_unit + item.quote_unit}
+                  key={item.base_unit + item.quote_unit} // Use unique key
+                  name={`${item.base_unit}/${item.quote_unit}`}
                   index={index + 1}
                   last={item.last}
                   buy={item.buy}
